@@ -3,11 +3,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class VirtualPetShelterApp {
+    VirtualPetShelter shelter = new VirtualPetShelter();
     Scanner input = new Scanner(System.in);
     Scanner reply = new Scanner(System.in);
     Scanner reply1 = new Scanner(System.in);
-
-    VirtualPetShelter shelter = new VirtualPetShelter();
     String userName;
     int tickCounter = 0;
     int randomGuestGivingPet = (int) (Math.random() * 5) + 2;
@@ -78,8 +77,7 @@ public class VirtualPetShelterApp {
         System.out.println("What would you like to feed " + name + "?\n" +
                 "1. dry food\n" +
                 "2. wet food\n" +
-                "3. a treat\n" +
-                "Be careful though. These pets tend to barf when they overeat.");
+                "3. a treat");
         int option = validInteger(3);
         if (option == 0) {
             exitGame();
@@ -166,11 +164,11 @@ public class VirtualPetShelterApp {
 
         //main loop here
 
+
         while (tickCounter <= 8) {
 
             int choice = 0;
             shelter.displayPets("full");
-            System.out.println("random guest is ...." + randomGuestGivingPet);
             displayTime(tickCounter);
             mainMenuDisplay();
             choice = validInteger(3);
@@ -217,13 +215,13 @@ public class VirtualPetShelterApp {
                 }
             }
 
-            if (randomGuestGivingPet == tickCounter){
-                System.out.println("You have a visitor! It looks Somebody has a pet to give you. I'll need your help to enter\n"+
-                " a few details about your new guest please. Let's start with a good name....?");
+            if (randomGuestGivingPet == tickCounter) {
+                System.out.println("You have a visitor! It looks Somebody has a pet to give you. I'll need your help to enter\n" +
+                        " a few details about your new guest please. Let's start with a good name....?");
                 String preName = reply.nextLine();
                 String newName = capitalize(preName);
 
-                while (shelter.pets.containsKey(newName)){
+                while (shelter.pets.containsKey(newName)) {
                     System.out.println("sorry! We've got one of those. Try a different name.");
                     preName = reply.nextLine();
                     newName = capitalize(preName);
@@ -238,13 +236,13 @@ public class VirtualPetShelterApp {
                 shelter.add(newPet);
             }
 
-            if (randomGuestAdoptingPet == tickCounter){
+            if (randomGuestAdoptingPet == tickCounter) {
                 System.out.println("Sorry to keep you busy! You have another visitor. This time your visitor wants to adopt a pet.\n" +
                         "We will first display everyone here, and then I'll need your guest to enter the name of his or her choice.");
                 shelter.displayPets("nameAndDescript");
                 String preName = reply1.nextLine();
                 String capitalizedName = capitalize(preName);
-                while (!shelter.confirmName(capitalizedName)){
+                while (!shelter.confirmName(capitalizedName)) {
                     System.out.println("Try again. Check your spelling.");
                     preName = reply1.nextLine();
                     capitalizedName = capitalize(preName);
@@ -252,20 +250,24 @@ public class VirtualPetShelterApp {
                 System.out.println("Thank your visitor. Say good bye to " + capitalizedName + ".");
                 shelter.adopt(capitalizedName);
             }
-
             tickCounter++;
             shelter.tick();
+        }
 
-        } // end of main loop
-
-
-
+        System.out.println("Ok! We've reached the end of the game.");
+        double finalScoresAverage = shelter.finalPetAverageAssessment();
+        if (finalScoresAverage < 80) {
+            System.out.println("nicely done! Your average pet assessment is " + finalScoresAverage + ".");
+        } else if (finalScoresAverage < 90) {
+            System.out.println("Well, you did ok. Your average pet assessment is " + finalScoresAverage + ".");
+        } else {
+            System.out.println("YIKES! This hasn't been your day. Your average pet assessment is " + finalScoresAverage);
+        }
     }
 
 
     public static void main(String[] args) {
         VirtualPetShelterApp app = new VirtualPetShelterApp();
         app.go();
-
     }
 }

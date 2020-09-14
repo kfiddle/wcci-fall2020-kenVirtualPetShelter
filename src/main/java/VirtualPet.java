@@ -155,7 +155,7 @@ public class VirtualPet {
 
     public void feed(int i) {
         hunger -= i;
-        vigilance -= (3 * i);
+        vigilance -= i;
         fatigue += i;
     }
 
@@ -205,7 +205,7 @@ public class VirtualPet {
 
         } else if (age > 5) {
             fatigue += 5;
-            vigilance -= 15;
+            vigilance -= 5;
             huntDesire -= 10;
 
         } else {

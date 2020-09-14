@@ -87,7 +87,7 @@ public class VirtualPetTest {
     // the two hunting method tests
 
     @Test
-    public void testMouseOrBirdHunting() {
+    public void testHuntingMethodForPlaying() {
         testPet1.setAge(2);
         testPet1.hunt();
         Assert.assertEquals(0, testPet1.getHunger());

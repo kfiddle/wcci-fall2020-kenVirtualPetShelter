@@ -1,7 +1,4 @@
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class VirtualPetShelter {
     HashMap<String, VirtualPet> pets = new HashMap<String, VirtualPet>();
@@ -14,8 +11,6 @@ public class VirtualPetShelter {
         return pets.containsKey(name);
     }
 
-
-
     public void displayPets(String typeOfDisplay) {
         if (typeOfDisplay.equals("full")) {
             String printedPets = "";
@@ -23,17 +18,11 @@ public class VirtualPetShelter {
             for (VirtualPet pet : pets.values()) {
                 System.out.println(pet.petToString());
             }
-        } else if (typeOfDisplay.equals("nameAndDescript") ) {
+        } else if (typeOfDisplay.equals("nameAndDescript")) {
             for (VirtualPet pet : pets.values()) {
                 System.out.printf("%-10s %s", pet.getName(), pet.getDescription());
                 System.out.println();
             }
-        }
-    }
-
-    public void assessAllPets(){
-        for (VirtualPet pet : pets.values()){
-            pet.setAssessment();
         }
     }
 
@@ -43,7 +32,6 @@ public class VirtualPetShelter {
             pet.addHunger(i);
             pet.addThirst(i);
             pet.addFatigue(i);
-
         }
     }
 
@@ -76,21 +64,25 @@ public class VirtualPetShelter {
         }
     }
 
-    public void waterSpecificPet(String name){
+    public void waterSpecificPet(String name) {
         pets.get(name).giveWater(4);
     }
 
-    public void strokePet(String name){
+    public void strokePet(String name) {
         pets.get(name).stroke();
     }
 
     public void playWith(String name) {
         pets.get(name).play();
-
-
     }
 
-
+    public double finalPetAverageAssessment() {
+        int totalScore = 0;
+        for (VirtualPet pet : pets.values()) {
+            totalScore += (pet.getAssessment());
+        }
+        return totalScore / pets.size();
+    }
 }
 
 

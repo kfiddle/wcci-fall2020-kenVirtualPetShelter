@@ -8,6 +8,11 @@ public class VirtualPetShelterTest {
     VirtualPet test1 = new VirtualPet("sandy", 11, "loves to gnaw hair");
     VirtualPet test2 = new VirtualPet("zed", 2, "is a siamese athlete");
     VirtualPet test3 = new VirtualPet("jackie", 11, "eats all day", 10, 12, 15, 20, 5);
+    VirtualPet test4 = new VirtualPet("Zara", 4, "is Zed's girlfriend");
+    VirtualPet test5 = new VirtualPet("Pinot", 25, "he's one old cat");
+    VirtualPet test6 = new VirtualPet("Juniper", 8, "sits around", 40, 13, 11, 26, 17);
+    VirtualPet test7 = new VirtualPet("Scooter", 1, "is quite playful", 30, 20, 5, 0, 20);
+
 
     @Test
     public void testingAddAPet() {
@@ -39,6 +44,27 @@ public class VirtualPetShelterTest {
         testingShelter.feedAll(3);
         Assert.assertEquals(7, test1.getHunger());
         Assert.assertEquals(17, test2.getHunger());
+    }
+
+    @Test
+    public void feedDryFoodToAPet() {
+        testingShelter.add(test6);
+        testingShelter.feedDryFood("Juniper", 3);
+        Assert.assertEquals(37, test6.getHunger());
+    }
+
+    @Test
+    public void feedWetFoodToAPet() {
+        testingShelter.add(test6);
+        testingShelter.feedWetFood("Juniper", 3);
+        Assert.assertEquals(31, test6.getHunger());
+    }
+
+    @Test
+    public void feedTreatToAPet() {
+        testingShelter.add(test6);
+        testingShelter.feedTreat("Juniper", 3);
+        Assert.assertEquals(34, test6.getHunger());
     }
 
     @Test
@@ -85,6 +111,14 @@ public class VirtualPetShelterTest {
         Assert.assertEquals(false, testingShelter.confirmName("larry"));
     }
 
+    @Test
+    public void testingFinalAverageAssessmentCalculation() {
+        testingShelter.add(test3);
+        testingShelter.add(test6);
+        testingShelter.add(test7);
+        Assert.assertEquals(75, 0, testingShelter.finalPetAverageAssessment());
+
+    }
 
 }
 
